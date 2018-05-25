@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Facebook</title>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-auth.js"></script>
+    <script src="init.js"></script>
+    <script src="authentication.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js"></script>
+    <script src="database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-storage.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        function visionTest(url) {
+            // CHANG HERE //
+            var functionUrl = "https://us-central1-project1-9f2a1.cloudfunctions.net/helloWorld";
+            $.post(functionUrl,
+                { "url": url },
+                function (data, status) {
+                    document.getElementById("visionResult").innerHTML = data;
+                });
+        };
+    </script>
+</head>
+
+<body onload="checkSignIn()">
+    <h1>Sign In</h1>
+    Status:
+    <div id="signinStatus">Not Signed In Yet</div>
+    <br>
+    <div id="signinGroup">
+        <div onclick="doSignIn('facebook');">[Facebook]</div>
+    </div>
+    <div id="signoutGroup">
+        <div onclick="doSignOut()">[Sign Out]</div>
+    </div>
+    <hr>
+
+    <div id="database">
+        <h1>Database (Firestore)</h1>
+        <h2>User Profile</h2>
+        <form action="#">
+            <label for="userFullname">Full Name</label>
+            <input type="text" id="userFullname">
+            <label for="userTelephone">Telephone</label>
+            <input type="text" id="userTelephone">
+            <input type="button" value="Save" onclick="saveUserProfile()">
+        </form>
+        <h3>User Profile Result
+            <div onclick="readUserProfile()">[Click to Read]</div>
+        </h3>
+        <br>
+        <div id="userProfileResult"></div>
+        <h2>Friends</h2>
+        <h3>Input Form</h3>
+        <form action="#">
+            <label for="friendFullname">Full Name</label>
+            <input type="text" id="friendFullname">
+            <label for="friendAge">Age</label>
+            <input type="txt" id="friendAge">
+            <input type="button" value="Save" onclick="addFriend()">
+        </form>
+
+        <h2>Read from database</h2>
+        <div onclick="getFriend()">[Click to Read Firend]</div>
+        <div id="friendsResult"></div>
+        <hr>
+    </div>
+
+    <div id="storage">
+        <h1>Storage</h1>
+        <h2>File Upload</h2>
+        <progress value=0 max="100" id="uploader"></progress>
+        <br>
+        <input type="file" value="upload" id="fileButton">
+        <script src="storage.js"></script>
+        <h2>Read from Storage </h2>
+        <img src="" alt="" id="targetImage">
+        <div id="filesResult"></div>
+        <br>
+        <div id="visionResult"></div>
+        <hr>
+    </div>
+
+</body>
+
+</html>
